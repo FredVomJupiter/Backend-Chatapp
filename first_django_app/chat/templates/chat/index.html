@@ -41,16 +41,19 @@
             <div class="page-content padding">
                 
                 <div class="flex-row-center-gap">
-                    <form action="#">
+                    
+                    <form action="/chat/" method="post">
+                        {% csrf_token %} <!-- This is important for security reasons (Django specific code): sends hidden token to backend -->
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="sample1">
-                            <label class="mdl-textfield__label" for="sample1">Write...</label>
+                            <input class="mdl-textfield__input" name="generalmessage" type="text" id="sample1">
+                            <label class="mdl-textfield__label" for="sample1">Write in General...</label>
                         </div>
+
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Send
+                        </button>
                     </form>
-    
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                        Send
-                    </button>
+                    
                 </div>
             
             </div>
