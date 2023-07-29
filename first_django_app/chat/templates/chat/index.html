@@ -1,1 +1,100 @@
-<h1>Hallo Chat funktioniert</h1>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+
+<style>
+    .flex-row-center-gap {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .padding {
+        padding: 100px 100px;
+    }
+</style>
+
+
+<!-- Simple header with fixed tabs. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-headera
+            mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Welcome to Chatrooms, {{ request.user }}!</span>
+        </div>
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href="#fixed-tab-1" class="mdl-layout__tab is-active">General Chat</a>
+            <a href="#fixed-tab-2" class="mdl-layout__tab">Lobby of Heroes</a>
+            <a href="#fixed-tab-3" class="mdl-layout__tab">Dragon's Dungeon</a>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Sidenav Title</span>
+        <span>Zeugs und Gedöns in der Sidenav</span>
+    </div>
+    <main class="mdl-layout__content">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+            <div class="page-content padding">
+                
+                <div class="flex-row-center-gap">
+                    <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="sample1">
+                            <label class="mdl-textfield__label" for="sample1">Write...</label>
+                        </div>
+                    </form>
+    
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Send
+                    </button>
+                </div>
+            
+            </div>
+
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+
+            <div class="page-content padding">
+                
+                <div class="flex-row-center-gap">
+                    <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="sample1">
+                            <label class="mdl-textfield__label" for="sample1">Write...</label>
+                        </div>
+                    </form>
+    
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Send
+                    </button>
+                </div>
+            
+            </div>
+
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+            
+            <div class="page-content padding">
+                
+                <div class="flex-row-center-gap">
+                    <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="sample1">
+                            <label class="mdl-textfield__label" for="sample1">Write...</label>
+                        </div>
+                    </form>
+    
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Send
+                    </button>
+                </div>
+            
+            </div>
+
+        </section>
+    </main>
+</div>
