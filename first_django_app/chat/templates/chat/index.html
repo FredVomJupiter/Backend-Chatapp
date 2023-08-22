@@ -14,6 +14,18 @@
     .padding {
         padding: 100px 100px;
     }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .text {
+        background-color: #e0e0e0;
+        padding: 10px;
+        border-radius: 10px;
+    }
 </style>
 
 
@@ -39,9 +51,17 @@
     <main class="mdl-layout__content">
         <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
             <div class="page-content padding">
+
+                <div class="column">
+                    {% for message in messages %}                    
+                    <div class="text">
+                        [{{ message.created_at }}] {{ message.author }}: {{ message.text }}
+                    </div>
+                    {% endfor %}
+                </div>
                 
                 <div class="flex-row-center-gap">
-                    
+
                     <form action="/chat/" method="post">
                         {% csrf_token %} <!-- This is important for security reasons (Django specific code): sends hidden token to backend -->
                         <div class="mdl-textfield mdl-js-textfield">
