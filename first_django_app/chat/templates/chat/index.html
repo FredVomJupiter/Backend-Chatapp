@@ -33,6 +33,7 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-headera
             mdl-layout--fixed-tabs">
     <header class="mdl-layout__header">
+        {% if request.user.is_authenticated %}
         <div class="mdl-layout__header-row">
             <!-- Title -->
             <span class="mdl-layout-title">Welcome to Chatrooms, {{ request.user }}!</span>
@@ -43,14 +44,30 @@
             <a href="#fixed-tab-2" class="mdl-layout__tab">Lobby of Heroes</a>
             <a href="#fixed-tab-3" class="mdl-layout__tab">Dragon's Dungeon</a>
         </div>
+        {% else %}
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Welcome to Chatrooms, please login or register!</span>
+        </div>
+        {% endif %}
     </header>
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Sidenav Title</span>
         <span>Zeugs und Gedöns in der Sidenav</span>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="logout" value="logout">
+            <button type="submit">Logout</button>
+        </form>
     </div>
     <main class="mdl-layout__content">
+
+        {% if request.user.is_authenticated %}
+
         <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
             <div class="page-content padding">
+
+               
 
                 <div class="column">
                     {% for message in messages %}                    
@@ -119,5 +136,15 @@
             </div>
 
         </section>
+
+        {% else %}
+
+                <div class="text">
+                    <p>You are not logged in.</p>
+
+                    <a href="/login/">Login</a> | <a href="/register/">Register</a>
+                </div>
+
+        {% endif %}
     </main>
 </div>
