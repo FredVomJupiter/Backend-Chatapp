@@ -6,13 +6,12 @@ from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def index(request):
-    if request.method == 'POST' and not (request.POST['logout'] == 'logout'):
+    if request.method == 'POST':
         print("Received data: " + request.POST['generalmessage'])
         myChat = Chat.objects.get(id=1)
         Message.objects.create(text=request.POST['generalmessage'], chat=myChat, author=request.user, receiver=request.user)
         chatMessages = Message.objects.filter(chat__id=1)
         return render(request, 'chat/index.html', {'messages': chatMessages})
-    if request.method == 'POST' and (request.POST['logout'] == 'logout'):
         logout(request)
         return HttpResponseRedirect('/logout/')
     return render(request, 'chat/index.html')
@@ -38,3 +37,18 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return render(request, 'logout/logout.html')
+
+
+def register_view(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('firstPW')
+        repeatPassword = request.POST.get('secondPW')
+        if password == repeatPassword:
+            print("Passwords match")
+            print("User registered")
+            return HttpResponseRedirect('/login/')
+        else:
+            print("Passwords do not match")
+            return render(request, 'register/register.html')
+    return render(request, 'register/register.html')

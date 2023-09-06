@@ -40,9 +40,9 @@
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-            <a href="#fixed-tab-1" class="mdl-layout__tab is-active">General Chat</a>
-            <a href="#fixed-tab-2" class="mdl-layout__tab">Lobby of Heroes</a>
-            <a href="#fixed-tab-3" class="mdl-layout__tab">Dragon's Dungeon</a>
+            <a href="#fixed-tab-1" class="mdl-layout__tab is-active" id="tab1">General Chat</a>
+            <a href="#fixed-tab-2" class="mdl-layout__tab" id="tab2">Lobby of Heroes</a>
+            <a href="#fixed-tab-3" class="mdl-layout__tab" id="tab3">Dragon's Dungeon</a>
         </div>
         {% else %}
         <div class="mdl-layout__header-row">
@@ -52,13 +52,23 @@
         {% endif %}
     </header>
     <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Sidenav Title</span>
-        <span>Zeugs und Gedöns in der Sidenav</span>
-        <form action="" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="logout" value="logout">
-            <button type="submit">Logout</button>
-        </form>
+        <span class="mdl-layout-title">Sidenav</span>
+        {% if request.user.is_authenticated %}
+        <nav class="mdl-navigation">
+            <a href="#" class="mdl-navigation__link" id="link1" onclick="activate('tab1')">General Chat</a>
+            <a href="#" class="mdl-navigation__link" id="link2" onclick="activate('tab2')">Lobby of Heroes</a>
+            <a href="#" class="mdl-navigation__link" id="link3" onclick="activate('tab3')">Dragon's Dungeon</a>
+        </nav>
+
+        <script>
+            // Activates the tab with the given id via virtual click.
+            function activate(tab) {
+                document.getElementById(tab).click();
+            }
+        </script>
+
+        <a href="/logout/">Logout</a>
+        {% endif %}
     </div>
     <main class="mdl-layout__content">
 
@@ -67,83 +77,85 @@
         <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
             <div class="page-content padding">
 
-               
+
 
                 <div class="column">
-                    {% for message in messages %}                    
+                    {% for message in messages %}
                     <div class="text">
                         [{{ message.created_at }}] {{ message.author }}: {{ message.text }}
                     </div>
                     {% endfor %}
                 </div>
-                
+
                 <div class="flex-row-center-gap">
 
                     <form action="/chat/" method="post">
-                        {% csrf_token %} <!-- This is important for security reasons (Django specific code): sends hidden token to backend -->
+                        {% csrf_token %}
+                        <!-- This is important for security reasons (Django specific code): sends hidden token to backend -->
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input" name="generalmessage" type="text" id="sample1">
                             <label class="mdl-textfield__label" for="sample1">Write in General...</label>
                         </div>
 
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        <button
+                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                             Send
                         </button>
                     </form>
-                    
+
                 </div>
-            
+
             </div>
 
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
 
             <div class="page-content padding">
-                
+
                 <div class="flex-row-center-gap">
                     <form action="#">
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input" type="text" id="sample1">
-                            <label class="mdl-textfield__label" for="sample1">Write...</label>
+                            <label class="mdl-textfield__label" for="sample1">Write in Lobby of Heroes...</label>
                         </div>
                     </form>
-    
+
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                         Send
                     </button>
                 </div>
-            
+
             </div>
 
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-            
+
             <div class="page-content padding">
-                
+
                 <div class="flex-row-center-gap">
                     <form action="#">
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input" type="text" id="sample1">
-                            <label class="mdl-textfield__label" for="sample1">Write...</label>
+                            <label class="mdl-textfield__label" for="sample1">Write in Dragon's Dungeon...</label>
                         </div>
                     </form>
-    
+
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                         Send
                     </button>
                 </div>
-            
+
             </div>
 
         </section>
 
         {% else %}
 
-                <div class="text">
-                    <p>You are not logged in.</p>
+        <div class="text">
+            <p>You are not logged in.</p>
 
-                    <a href="/login/">Login</a> | <a href="/register/">Register</a>
-                </div>
+            <a href="/login/">Login</a> | <a href="/register/">Register</a>
+        </div>
 
         {% endif %}
     </main>
