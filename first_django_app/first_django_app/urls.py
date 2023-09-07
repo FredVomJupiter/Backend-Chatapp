@@ -21,9 +21,10 @@ from chat.views import index
 from chat.views import login_view
 from chat.views import logout_view
 from chat.views import register_view
+from chat.views import redirect_view
 
 urlpatterns = [
-    path('', login_view, name='login'),
+    path('', redirect_view, name='redirect'),
     path('admin/', admin.site.urls),
     path('chat/', index),
     path('login/', login_view, name='login'),
