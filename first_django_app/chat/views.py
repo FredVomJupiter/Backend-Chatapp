@@ -17,20 +17,27 @@ def index(request):
         else: 
             myChat = Chat.objects.create(id=request.POST['chatId'])
             Message.objects.create(text=request.POST['message'], chat=myChat, author=request.user, receiver=request.user)
-    chatMessages = Message.objects.all()
-    return render(request, 'chat/index.html', {'messages': chatMessages})
-
-
-#print("Received data: " + request.POST['generalmessage'])
- #       if Chat.objects.filter(id=1).count() > 0:
-  #          myChat = Chat.objects.get(id=1)
-   #         Message.objects.create(text=request.POST['generalmessage'], chat=myChat, author=request.user, receiver=request.user)
-    #    else: 
-     #       myChat = Chat.objects.create(id=1)
-      #      Message.objects.create(text=request.POST['generalmessage'], chat=myChat, author=request.user, receiver=request.user)
-       # #chatMessages = Message.objects.filter(chat__id=1)
-        #return render(request, 'chat/index.html', {'messages': chatMessages})
-
+        if request.POST['chatId'] == '2':
+            current_chat = 'heroes'
+            chatMessages = Message.objects.filter(chat_id=2)
+        elif request.POST['chatId'] == '3':
+            current_chat = 'dragons'
+            chatMessages = Message.objects.filter(chat_id=3)
+        else:
+            current_chat = 'general'
+            chatMessages = Message.objects.filter(chat_id=1)
+    if request.method == 'GET':
+        query = request.GET.get('current_chat', '')
+        if query == 'heroes':
+            current_chat = query
+            chatMessages = Message.objects.filter(chat_id=2)
+        elif query == 'dragons':
+            current_chat = query
+            chatMessages = Message.objects.filter(chat_id=3)
+        else:
+            current_chat = 'general'
+            chatMessages = Message.objects.filter(chat_id=1)
+    return render(request, 'chat/index.html', {'messages': chatMessages, 'current_chat': current_chat} )
 
 
 def login_view(request):
