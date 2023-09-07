@@ -52,9 +52,12 @@
 
                 <div class="column">
                     {% for message in messages %}
+
+                    {% if message.chat_id == 1 %}
                     <div class="text">
                         [{{ message.created_at }}] {{ message.author }}: {{ message.text }}
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
 
@@ -64,7 +67,8 @@
                         {% csrf_token %}
                         <!-- This is important for security reasons (Django specific code): sends hidden token to backend -->
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" name="generalmessage" type="text" id="sample1">
+                            <input type="hidden" name="chatId" value="1">
+                            <input class="mdl-textfield__input" name="message" type="text" id="sample1">
                             <label class="mdl-textfield__label" for="sample1">Write in General...</label>
                         </div>
 
@@ -83,17 +87,32 @@
 
             <div class="page-content padding">
 
+                <div class="column">
+                    {% for message in messages %}
+
+                    {% if message.chat_id == 2 %}
+                    <div class="text">
+                        [{{ message.created_at }}] {{ message.author }}: {{ message.text }}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
                 <div class="flex-row-center-gap">
-                    <form action="#">
+
+                    <form action="/chat/" method="post">
+                        {% csrf_token %}
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="sample1">
-                            <label class="mdl-textfield__label" for="sample1">Write in Lobby of Heroes...</label>
+                            <input type="hidden" name="chatId" value="2">
+                            <input class="mdl-textfield__input" name="message" type="text" id="sample2">
+                            <label class="mdl-textfield__label" for="sample2">Write in Lobby of Heroes...</label>
                         </div>
+
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Send
+                        </button>
                     </form>
 
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                        Send
-                    </button>
                 </div>
 
             </div>
@@ -103,17 +122,32 @@
 
             <div class="page-content padding">
 
+                <div class="column">
+                    {% for message in messages %}
+
+                    {% if message.chat_id == 3 %}
+                    <div class="text">
+                        [{{ message.created_at }}] {{ message.author }}: {{ message.text }}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
                 <div class="flex-row-center-gap">
-                    <form action="#">
+
+                    <form action="/chat/" method="post">
+                        {% csrf_token %}
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="sample1">
-                            <label class="mdl-textfield__label" for="sample1">Write in Dragon's Dungeon...</label>
+                            <input type="hidden" name="chatId" value="3">
+                            <input class="mdl-textfield__input" name="message" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Write in Dragon's Dungeon...</label>
                         </div>
+
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Send
+                        </button>
                     </form>
 
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                        Send
-                    </button>
                 </div>
 
             </div>

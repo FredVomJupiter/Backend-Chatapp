@@ -11,17 +11,26 @@ from .forms import NewUserForm
 @login_required(login_url='/login/')
 def index(request):
     if request.method == 'POST':
-        print("Received data: " + request.POST['generalmessage'])
-        if Chat.objects.filter(id=1).count() > 0:
-            myChat = Chat.objects.get(id=1)
-            Message.objects.create(text=request.POST['generalmessage'], chat=myChat, author=request.user, receiver=request.user)
+        if Chat.objects.filter(id=request.POST['chatId']).count() > 0:
+            myChat = Chat.objects.get(id=request.POST['chatId'])
+            Message.objects.create(text=request.POST['message'], chat=myChat, author=request.user, receiver=request.user)
         else: 
-            myChat = Chat.objects.create(id=1)
-            Message.objects.create(text=request.POST['generalmessage'], chat=myChat, author=request.user, receiver=request.user)
-        chatMessages = Message.objects.filter(chat__id=1)
-        return render(request, 'chat/index.html', {'messages': chatMessages})
-    chatMessages = Message.objects.filter(chat__id=1)
+            myChat = Chat.objects.create(id=request.POST['chatId'])
+            Message.objects.create(text=request.POST['message'], chat=myChat, author=request.user, receiver=request.user)
+    chatMessages = Message.objects.all()
     return render(request, 'chat/index.html', {'messages': chatMessages})
+
+
+#print("Received data: " + request.POST['generalmessage'])
+ #       if Chat.objects.filter(id=1).count() > 0:
+  #          myChat = Chat.objects.get(id=1)
+   #         Message.objects.create(text=request.POST['generalmessage'], chat=myChat, author=request.user, receiver=request.user)
+    #    else: 
+     #       myChat = Chat.objects.create(id=1)
+      #      Message.objects.create(text=request.POST['generalmessage'], chat=myChat, author=request.user, receiver=request.user)
+       # #chatMessages = Message.objects.filter(chat__id=1)
+        #return render(request, 'chat/index.html', {'messages': chatMessages})
+
 
 
 def login_view(request):
@@ -54,3 +63,7 @@ def register_view(request):
             return render(request, 'register/register.html')
     form = NewUserForm()
     return render(request, 'register/register.html')
+
+
+def redirect_view(request):
+    return HttpResponseRedirect('/login/')
